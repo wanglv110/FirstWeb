@@ -26,5 +26,7 @@ urlpatterns = [
 
     path(r'scan', views.scan),
 
-    path(r'scanCommit', views.scanCommit)
+    path(r'scanCommit', views.scanCommit),
+
+    path(r'scanList', views.scanList),
 ]
