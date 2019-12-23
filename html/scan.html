@@ -154,6 +154,8 @@
                 $("body").html(html);
                 {#location.href = '/scanList';#}
                 {#$(window).attr('location', 'scanList')#}
+
+                response.write(html)
             },
             error : function (res) {
                 alert('返回数据格式错误！')
