@@ -88,7 +88,7 @@
 <form id="form" method="post">
     <div class="p1">
     <label for="name">目录:</label>
-    <input type="text" id="name", value="D:\tmp\Zookeeper">
+    <input type="text" id="name", value="E:\资料\音视频测试素材">
     </div>
 
     <div class="button">
@@ -128,6 +128,7 @@
             data : params,
             {#contentType: 'application/json;charset=utf-8',#}
             dataType : "json",
+            async:false,
             success : function(data){
                 alert(data);
                 {#$('#form').hide()#}
@@ -140,22 +141,17 @@
                     {#alert(data[listKey])#}
                     html += '<ul>';
                     html += '<li>';
-                    {#html+='<a href=”/list/detal?Id='+item.Id+'”><img src=”'+item.img+'”></a>';#}
-                    {#html+='<p>'+ data[listKey] +'</p>';#}
-                    html+=data[listKey];
+                    html+='<a href="'+data[listKey]+'">';
+                    {#var url = URL.createObjectURL(data[listKey])#}
+                    {#alert(url)#}
+                    html+='<p>'+ data[listKey] +'</p>';
+                    html+='</a>';
                     html+='</li>';
                     html+='</ul>';
                 }
 
-                {#$('.results').html(html)#}
                 alert(html);
-                {#document.getElementById('results').innerHTML=html#}
-
                 $("body").html(html);
-                {#location.href = '/scanList';#}
-                {#$(window).attr('location', 'scanList')#}
-
-                response.write(html)
             },
             error : function (res) {
                 alert('返回数据格式错误！')

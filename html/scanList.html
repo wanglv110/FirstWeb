@@ -1,19 +1,92 @@
-<!DOCTYPE html>
-<html lang="en">
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Title</title>#}
+{#</head>#}
+{#<body>#}
+{#<input type="file" id="file" onchange="onInputFileChange()">#}
+{#<video id="video_id" controls="controls">您的浏览器不支持 video 标签。</video>#}
+{#<button onclick="playVid()">开始</button>         <!--增加代码-->#}
+{#<button onclick="pauseVid()">暂停</button>        <!--增加代码-->#}
+{#<div id="output"></div>#}
+{#<script src="https://cdn.bootcss.com/jquery/1.10.1/jquery.min.js"></script>#}
+{#<script>#}
+{#    var captureImage=null;   //增加代码#}
+{#    var int=null;           //增加代码#}
+{##}
+{#    function onInputFileChange() {#}
+{#       var file = document.getElementById('file').files[0];#}
+{#       var url = URL.createObjectURL(file);#}
+{#       console.log(url);#}
+{#       document.getElementById("video_id").src = url;#}
+{#    }#}
+{##}
+{#    // 增加代码#}
+{#    function playVid(){#}
+{#        video_id.play();  // 开始播放#}
+{#        int = setInterval(captureImage,1000);  // 开始截帧,1秒截取一次#}
+{#    }#}
+{#    function pauseVid(){#}
+{#        video_id.pause()  // 暂停播放#}
+{#        clearInterval(int)  // 暂停截帧#}
+{#    }#}
+{##}
+{#    (function() {  //(function(){}())定义处立刻执行的函数#}
+{#      "use strict";#}
+{#      var video, $output;#}
+{#      var scale = 0.25;#}
+{#      var initialize = function() {#}
+{#        $output = $("#output");#}
+{#        video = $("#video_id").get(0);#}
+{#      };#}
+{#      captureImage = function() {                           //修改代码#}
+{#        var canvas = document.createElement("canvas");#}
+{#        canvas.width = video.videoWidth * scale;#}
+{#        canvas.height = video.videoHeight * scale;#}
+{#        canvas.getContext('2d')#}
+{#           .drawImage(video, 0, 0, canvas.width, canvas.height);#}
+{#        var img = document.createElement("img");#}
+{#        img.src= canvas.toDataURL();#}
+{#        $output.prepend(img);#}
+{##}
+{#        var b64 = img.src.substring(22);#}
+{##}
+{#        $.ajax({#}
+{#            type:"POST",#}
+{#            url:"{% url "index" %}",#}
+{#            data:{image:b64},         //传递参数！！！！#}
+{##}
+{#            success:function(){}#}
+{#        });#}
+{#      };#}
+{#      $(initialize);#}
+{#    }());#}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+
+
+
+
+
 <head>
-    <meta charset="UTF-8">
-    <title>扫描列表</title>
+  <link href="http://vjs.zencdn.net/6.6.3/video-js.css" rel="stylesheet">
+
+  <!-- If you'd like to support IE8 -->
+  <script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 </head>
-<script>
 
-</script>
 <body>
-<ol>
-  <li>咖啡</li>
-  <li>牛奶</li>
-  <li>茶</li>
-</ol>
+  <video id="my-video" class="video-js" controls preload="auto" width="640" height="480"
+  poster="MY_VIDEO_POSTER.jpg" data-setup="{}">
+    <source src="MY_VIDEO.mp4" type='video/mp4'>
+    <source src="MY_VIDEO.webm" type='video/webm'>
+    <p class="vjs-no-js">
+      To view this video please enable JavaScript, and consider upgrading to a web browser that
+      <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+    </p>
+  </video>
 
-
+  <script src="http://vjs.zencdn.net/6.6.3/video.js"></script>
 </body>
-</html>
